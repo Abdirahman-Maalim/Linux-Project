@@ -1,0 +1,36 @@
+=== Milestone 1 evidence: Sun Nov 15 21:51:12 +03 2026 on ubuntu-vm ===
+
+--- OS ---
+PRETTY_NAME="Ubuntu 26.04 LTS"
+
+--- Groups ---
+webteam:x:1004:webadmin
+webaudit:x:1005:auditor
+
+--- Users ---
+uid=1003(webadmin) gid=1006(webadmin) groups=1006(webadmin),1004(webteam)
+uid=1004(auditor) gid=1007(auditor) groups=1007(auditor),1005(webaudit)
+
+--- Ownership and permissions ---
+drwxr-xr-x 7 root     root     4096 Nov 15 21:28 /opt/linuxproject
+drwxrws--- 2 webadmin webteam  4096 Nov 15 21:28 /opt/linuxproject/config
+drwxrwsr-x 2 webadmin webteam  4096 Nov 15 21:28 /opt/linuxproject/docs
+drwxr-s--- 2 webadmin webaudit 4096 Nov 15 21:28 /opt/linuxproject/logs
+drwxr-s--- 2 webadmin webaudit 4096 Nov 15 21:28 /opt/linuxproject/reports
+drwxrwsr-x 2 webadmin webteam  4096 Nov 15 21:28 /opt/linuxproject/scripts
+drwxrwsr-x 3 webadmin webteam  4096 Nov 15 21:28 /var/www/linuxproject
+drwxrwsr-x 2 webadmin webteam  4096 Nov 15 21:28 /var/www/linuxproject/html
+
+--- TEST 1: webadmin writes to scripts (expect success) ---
+OK: webadmin can write
+
+--- TEST 2: auditor reads logs (expect success) ---
+OK: auditor can read logs
+
+--- TEST 3: auditor writes to logs (expect denied) ---
+touch: cannot touch '/opt/linuxproject/logs/x': Permission denied
+DENIED as designed
+
+--- TEST 4: auditor reads config (expect denied) ---
+ls: cannot open directory '/opt/linuxproject/config': Permission denied
+DENIED as designed

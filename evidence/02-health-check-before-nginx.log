@@ -1,0 +1,48 @@
+=== Milestone 2 evidence: Sun Nov 15 22:33:56 +03 2026 ===
+
+--- Script permissions (executable, owned by webadmin:webteam) ---
+-rwxrwxr-x 1 webadmin webteam 6078 Nov 15 22:33 /opt/linuxproject/scripts/health-check.sh
+
+--- Run (NGINX is not installed yet, so FAIL is expected) ---
+=== Project health check: Sun Nov 15 22:33:56 +03 2026 ===
+Host: ubuntu-vm | Run as: webadmin
+
+--- Users and groups ---
+[PASS] User 'webadmin' exists
+[PASS] User 'auditor' exists
+[PASS] Group 'webteam' exists
+[PASS] Group 'webaudit' exists
+[PASS] 'webadmin' is a member of 'webteam'
+[PASS] 'auditor' is a member of 'webaudit'
+
+--- Directory ownership and permissions ---
+[PASS] /opt/linuxproject is root:root:755
+[PASS] /opt/linuxproject/scripts is webadmin:webteam:2775
+[PASS] /opt/linuxproject/docs is webadmin:webteam:2775
+[PASS] /opt/linuxproject/config is webadmin:webteam:2770
+[PASS] /opt/linuxproject/logs is webadmin:webaudit:2750
+[PASS] /opt/linuxproject/reports is webadmin:webaudit:2750
+[PASS] /var/www/linuxproject is webadmin:webteam:2775
+[PASS] /var/www/linuxproject/html is webadmin:webteam:2775
+
+--- NGINX service ---
+[FAIL] NGINX is not installed
+
+--- Website ---
+[FAIL] Site file missing: /var/www/linuxproject/html/index.html
+[FAIL] Site file missing: /var/www/linuxproject/html/styles.css
+[FAIL] GET http://localhost/ returned HTTP 000 (expected 200)
+[FAIL] GET http://localhost/styles.css returned HTTP 000 (expected 200)
+
+=== Summary: 14 passed, 0 warnings, 5 failed ===
+Log saved to: /opt/linuxproject/logs/health-check-20261115-223356.log
+Exit code: 1
+
+--- Logs and reports created ---
+ls: cannot open directory '/opt/linuxproject/logs': Permission denied
+ls: cannot open directory '/opt/linuxproject/reports': Permission denied
+
+--- Auditor can read the report ---
+=== Project health check: Sun Nov 15 22:33:56 +03 2026 ===
+Host: ubuntu-vm | Run as: webadmin
+

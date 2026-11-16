@@ -1,0 +1,72 @@
+=== FINAL VALIDATION - Mon Nov 16 21:51:32 +03 2026 on ubuntu-vm ===
+
+--- Project tree: type/permissions owner:group path ---
+drwxr-xr-x root:root /opt/linuxproject
+drwxrws--- webadmin:webteam /opt/linuxproject/config
+-rw-rw---- webadmin:webteam /opt/linuxproject/config/linuxproject.conf
+drwxrwsr-x webadmin:webteam /opt/linuxproject/docs
+drwxr-s--- webadmin:webaudit /opt/linuxproject/logs
+-rw-r--r-- webadmin:webaudit /opt/linuxproject/logs/health-check-20261115-223356.log
+-rw-r--r-- webadmin:webaudit /opt/linuxproject/logs/health-check-20261116-174800.log
+drwxr-s--- webadmin:webaudit /opt/linuxproject/reports
+-rw-r--r-- webadmin:webaudit /opt/linuxproject/reports/latest-report.txt
+drwxrwsr-x webadmin:webteam /opt/linuxproject/scripts
+-rwxrwxr-x webadmin:webteam /opt/linuxproject/scripts/health-check.sh
+drwxrwsr-x webadmin:webteam /var/www/linuxproject
+drwxrwsr-x webadmin:webteam /var/www/linuxproject/html
+-rw-rw-r-- webadmin:webteam /var/www/linuxproject/html/about.html
+-rw-rw-r-- webadmin:webteam /var/www/linuxproject/html/index.html
+-rw-rw-r-- webadmin:webteam /var/www/linuxproject/html/styles.css
+
+--- NGINX ---
+nginx version: nginx/1.28.3 (Ubuntu)
+active
+enabled
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+LISTEN 0      511          0.0.0.0:80         0.0.0.0:*    users:(("nginx",pid=6272,fd=5),("nginx",pid=6271,fd=5),("nginx",pid=6270,fd=5),("nginx",pid=6269,fd=5),("nginx",pid=942,fd=5))
+LISTEN 0      511             [::]:80            [::]:*    users:(("nginx",pid=6272,fd=6),("nginx",pid=6271,fd=6),("nginx",pid=6270,fd=6),("nginx",pid=6269,fd=6),("nginx",pid=942,fd=6))
+
+--- HTTP status of every deployed page ---
+/ -> 200
+/styles.css -> 200
+/about.html -> 200
+
+--- Health check ---
+=== Project health check: Mon Nov 16 21:51:33 +03 2026 ===
+Host: ubuntu-vm | Run as: webadmin
+
+--- Users and groups ---
+[PASS] User 'webadmin' exists
+[PASS] User 'auditor' exists
+[PASS] Group 'webteam' exists
+[PASS] Group 'webaudit' exists
+[PASS] 'webadmin' is a member of 'webteam'
+[PASS] 'auditor' is a member of 'webaudit'
+
+--- Directory ownership and permissions ---
+[PASS] /opt/linuxproject is root:root:755
+[PASS] /opt/linuxproject/scripts is webadmin:webteam:2775
+[PASS] /opt/linuxproject/docs is webadmin:webteam:2775
+[PASS] /opt/linuxproject/config is webadmin:webteam:2770
+[PASS] /opt/linuxproject/logs is webadmin:webaudit:2750
+[PASS] /opt/linuxproject/reports is webadmin:webaudit:2750
+[PASS] /var/www/linuxproject is webadmin:webteam:2775
+[PASS] /var/www/linuxproject/html is webadmin:webteam:2775
+
+--- NGINX service ---
+[PASS] NGINX is installed (1.28.3 (Ubuntu))
+[PASS] NGINX service is active
+[PASS] NGINX is enabled at boot
+[PASS] NGINX configuration test passed
+[PASS] A listener is bound to port 80
+
+--- Website ---
+[PASS] Site file present: /var/www/linuxproject/html/index.html
+[PASS] Site file present: /var/www/linuxproject/html/styles.css
+[PASS] GET http://localhost/ returned HTTP 200
+[PASS] GET http://localhost/styles.css returned HTTP 200
+
+=== Summary: 23 passed, 0 warnings, 0 failed ===
+Log saved to: /opt/linuxproject/logs/health-check-20261116-215133.log
+Exit code: 0

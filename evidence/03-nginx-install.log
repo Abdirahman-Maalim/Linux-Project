@@ -1,0 +1,22 @@
+=== Milestone 3 evidence: NGINX installation - Sun Nov 15 23:54:30 +03 2026 ===
+
+--- Package ---
+ii  nginx          1.28.3-2ubuntu1.12 arm64        small, powerful, scalable web/proxy server
+
+--- Version and binary ---
+nginx version: nginx/1.28.3 (Ubuntu)
+/usr/sbin/nginx
+
+--- Service state ---
+active
+enabled
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Sun 2026-11-15 23:51:12 +03; 3min 17s ago
+ Invocation: c3569dab806d400a88c5a012aa5185f5
+       Docs: man:nginx(8)
+    Process: 14183 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+    Process: 14184 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+   Main PID: 14217 (nginx)
+      Tasks: 5 (limit: 6326)
+     Memory: 4.3M (peak: 17.9M)

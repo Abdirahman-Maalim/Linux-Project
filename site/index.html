@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linux Administration Project Site</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Linux Administration Project</h1>
+        <p>Deployed with NGINX on Linux</p>
+        <p>Deployed by Abdirahman Maalim on ubuntu-vm | Deployed 2026-07-01, rebuilt 2026-11-15</p>
+    </header>
+
+    <main class="container">
+        <section class="card">
+            <h2>About This Project</h2>
+            <p>
+                This website is part of the Linux Administration Independent Project.
+                It demonstrates static website hosting with NGINX.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Skills Demonstrated</h2>
+            <ul>
+                <li>Linux users and groups</li>
+                <li>Permissions and file management</li>
+                <li>Shell scripting</li>
+                <li>NGINX installation and configuration</li>
+                <li>Troubleshooting and validation</li>
+            </ul>
+        </section>
+
+        <section class="card">
+            <h2>Student Task</h2>
+            <p>
+                Rebuilt from scratch by Abdirahman Maalim on ubuntu-vm (Ubuntu 26.04 LTS).
+                The environment uses two groups (webteam, webaudit) and two users
+                (webadmin, auditor) so that editing rights and read-only review rights
+                are kept separate.
+            </p>
+        </section>
+
+        <section class="card">
+            <h2>Deployment Details</h2>
+            <ul>
+                <li>Student: Abdirahman Maalim</li>
+                <li>Hostname: ubuntu-vm</li>
+                <li>Deployment date: 2026-07-01 (original deployment)</li>
+                <li>Rebuilt: 2026-11-15</li>
+                <li>Document root: /var/www/linuxproject/html</li>
+                <li>Site maintained by user webadmin (group webteam)</li>
+            </ul>
+            <p>
+                Summary: access is controlled with dedicated users and groups, the
+                environment is checked by an automated health-check script, and every
+                NGINX change is validated with nginx -t before a reload.
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <p>Linux Administration Project</p>
+    </footer>
+</body>
+</html>

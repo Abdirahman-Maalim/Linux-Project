@@ -1,0 +1,108 @@
+=== CASE 1: NGINX serves the default page instead of my site - Mon Nov 16 15:50:01 +03 2026 ===
+
+--- Symptom: page title returned for http://localhost/ ---
+<title>Welcome to nginx!</title>
+
+--- Enabled sites ---
+total 0
+lrwxrwxrwx 1 root root 34 Nov 15 23:51 default -> /etc/nginx/sites-available/default
+
+--- Available sites ---
+total 4
+-rw-r--r-- 1 root root 2412 Mar 27  2026 default
+
+--- Project config directory ---
+ls: cannot open directory '/opt/linuxproject/config': Permission denied
+
+--- Active server blocks (listen / server_name / root) ---
+	listen 80 default_server;
+	listen [::]:80 default_server;
+	root /var/www/html;
+	server_name _;
+
+--- Repo files ---
+/home/ubuntu/Linux-Project/config:
+total 0
+
+/home/ubuntu/Linux-Project/site:
+total 4
+-rw-rw-r-- 1 ubuntu ubuntu 2442 Nov 16 15:27 index.html
+
+=== CASE 1 FIX: applied Mon Nov 16 15:50:25 +03 2026 ===
+
+--- Enabled sites after fix ---
+total 0
+lrwxrwxrwx 1 root root 39 Nov 16 15:50 linuxproject -> /etc/nginx/sites-available/linuxproject
+
+--- Validate, then reload only if valid ---
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+Reloaded OK
+
+--- Verification: page title ---
+<title>Welcome to nginx!</title>
+
+--- Verification: customization visible ---
+
+=== CASE 1 (continued): fix did not take effect - Mon Nov 16 15:53:55 +03 2026 ===
+
+--- Who is listening on port 80? ---
+LISTEN 0      511          0.0.0.0:80         0.0.0.0:*    users:(("nginx",pid=6272,fd=5),("nginx",pid=6271,fd=5),("nginx",pid=6270,fd=5),("nginx",pid=6269,fd=5),("nginx",pid=942,fd=5))
+LISTEN 0      511             [::]:80            [::]:*    users:(("nginx",pid=6272,fd=6),("nginx",pid=6271,fd=6),("nginx",pid=6270,fd=6),("nginx",pid=6269,fd=6),("nginx",pid=942,fd=6))
+
+--- NGINX processes and start times ---
+    942 Mon Nov 16 14:14:45 2026 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+   6269 Mon Nov 16 15:50:24 2026 nginx: worker process
+   6270 Mon Nov 16 15:50:24 2026 nginx: worker process
+   6271 Mon Nov 16 15:50:24 2026 nginx: worker process
+   6272 Mon Nov 16 15:50:24 2026 nginx: worker process
+
+--- Service status ---
+● nginx.service - A high performance web server and a reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: enabled)
+     Active: active (running) since Mon 2026-11-16 12:49:31 +03; 3h 4min ago
+ Invocation: a60cc113ce0547b0ae0622c6114d5b9f
+       Docs: man:nginx(8)
+    Process: 898 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+    Process: 925 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+    Process: 6263 ExecReload=/usr/sbin/nginx -g daemon on; master_process on; -s reload (code=exited, status=0/SUCCESS)
+   Main PID: 942 (nginx)
+      Tasks: 5 (limit: 6326)
+     Memory: 6M (peak: 10.7M)
+        CPU: 154ms
+
+--- Server blocks NGINX has loaded now ---
+    listen 80;
+    listen [::]:80;
+    server_name _;
+    root /var/www/linuxproject/html;
+
+--- Did my site's access log receive the requests? ---
+
+--- Direct IPv4 and IPv6 requests ---
+    <title>Linux Administration Project Site</title>
+
+--- Containers publishing ports? ---
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+=== CASE 1 VERIFICATION (after reload settled) - Mon Nov 16 17:27:52 +03 2026 ===
+
+--- Page title ---
+    <title>Linux Administration Project Site</title>
+
+--- Customization visible ---
+        <p>Deployed by Abdirahman Maalim on ubuntu-vm | Deployed 2026-07-01, rebuilt 2026-11-15</p>
+                Rebuilt from scratch by Abdirahman Maalim on ubuntu-vm (Ubuntu 26.04 LTS).
+                <li>Student: Abdirahman Maalim</li>
+                <li>Deployment date: 2026-07-01 (original deployment)</li>
+
+--- IPv4 ---
+    <title>Linux Administration Project Site</title>
+
+--- IPv6 ---
+no response over IPv6
+
+--- My site's access log now has entries ---
+127.0.0.1 - - [16/Nov/2026:17:27:52 +0300] "GET / HTTP/1.1" 200 2442 "-" "curl/8.18.0"
+127.0.0.1 - - [16/Nov/2026:17:27:52 +0300] "GET / HTTP/1.1" 200 2442 "-" "curl/8.18.0"
+127.0.0.1 - - [16/Nov/2026:17:27:52 +0300] "GET / HTTP/1.1" 200 2442 "-" "curl/8.18.0"

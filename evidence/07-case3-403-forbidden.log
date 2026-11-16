@@ -1,0 +1,48 @@
+=== CASE 3: New page returns 403 Forbidden - Mon Nov 16 17:45:51 +03 2026 ===
+
+--- Symptom ---
+HTTP/1.1 403 Forbidden
+
+--- NGINX error log ---
+2026/11/16 17:45:51 [error] 6269#6269: *22 open() "/var/www/linuxproject/html/about.html" failed (13: Permission denied), client: 127.0.0.1, server: _, request: "HEAD /about.html HTTP/1.1", host: "localhost"
+
+--- File permissions in the web root ---
+total 12
+-rw------- 1 webadmin webteam   46 Nov 16 17:45 about.html
+-rw-rw-r-- 1 webadmin webteam 2442 Nov 16 15:30 index.html
+-rw-rw-r-- 1 webadmin webteam  808 Nov 16 17:44 styles.css
+
+--- Permissions on every directory in the path ---
+f: /var/www/linuxproject/html/about.html
+drwxr-xr-x root     root    /
+drwxr-xr-x root     root    var
+drwxr-xr-x root     root    www
+drwxrwsr-x webadmin webteam linuxproject
+drwxrwsr-x webadmin webteam html
+-rw------- webadmin webteam about.html
+
+--- Which user do the NGINX workers run as? ---
+www-data nginx: worker process
+
+--- Can that user read the file? ---
+cat: /var/www/linuxproject/html/about.html: Permission denied
+
+=== CASE 3 FIX: applied Mon Nov 16 17:47:59 +03 2026 ===
+
+--- Permissions after fix ---
+total 12
+-rw-rw-r-- 1 webadmin webteam   46 Nov 16 17:45 about.html
+-rw-rw-r-- 1 webadmin webteam 2442 Nov 16 15:30 index.html
+-rw-rw-r-- 1 webadmin webteam  808 Nov 16 17:44 styles.css
+
+--- Verification: HTTP status ---
+HTTP/1.1 200 OK
+
+--- Verification: www-data can now read it ---
+<h1>About</h1>
+<p>Maintained by webadmin.</p>
+
+--- Health check still clean ---
+
+=== Summary: 23 passed, 0 warnings, 0 failed ===
+Log saved to: /opt/linuxproject/logs/health-check-20261116-174800.log

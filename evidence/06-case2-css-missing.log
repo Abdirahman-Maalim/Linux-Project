@@ -1,0 +1,33 @@
+=== CASE 2: Page loads unstyled, stylesheet not loading - Mon Nov 16 17:44:25 +03 2026 ===
+
+--- The page references a stylesheet ---
+    <link rel="stylesheet" href="styles.css">
+
+--- Request for the stylesheet ---
+HTTP/1.1 404 Not Found
+Server: nginx/1.28.3 (Ubuntu)
+Date: Mon, 16 Nov 2026 14:44:25 GMT
+
+--- NGINX error log ---
+
+--- Files in the web root ---
+total 4
+-rw-rw-r-- 1 webadmin webteam 2442 Nov 16 15:30 index.html
+
+=== CASE 2 FIX: applied Mon Nov 16 17:44:58 +03 2026 ===
+
+--- Files in the web root ---
+total 8
+-rw-rw-r-- 1 webadmin webteam 2442 Nov 16 15:30 index.html
+-rw-rw-r-- 1 webadmin webteam  808 Nov 16 17:44 styles.css
+
+--- Verification: stylesheet request ---
+HTTP/1.1 200 OK
+Content-Type: text/css
+
+--- Verification: first lines of the served CSS ---
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;

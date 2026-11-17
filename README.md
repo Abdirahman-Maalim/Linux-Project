@@ -1,4 +1,4 @@
-# Linux Administration Independent Project
+# Linux Administration Project
 
 A documented Linux web environment: users and groups with least-privilege permissions, an
 original validation script, an NGINX static site deployment, and three troubleshooting cases.
